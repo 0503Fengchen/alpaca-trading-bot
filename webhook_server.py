@@ -4,9 +4,9 @@ import os
 
 app = Flask(__name__)
 
-API_KEY = os.getenv("PKH4J302ABVZ1K7V60J0")
-API_SECRET = os.getenv("1NASos14HvKPIIf5nNovL6IUHBWzyPaX9rnKe1Rj")
-BASE_URL = os.getenv("ALPACA_BASE_URL", "https://paper-api.alpaca.markets/v2")
+API_KEY = os.getenv("ALPACA_API_KEY")
+API_SECRET = os.getenv("ALPACA_SECRET_KEY")
+BASE_URL = os.getenv("ALPACA_BASE_URL", "https://paper-api.alpaca.markets")
 
 alpaca = REST(API_KEY, API_SECRET, BASE_URL)
 
