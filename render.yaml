@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: alpaca-trading-bot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python webhook_server.py
+    envVars:
+      - key: ALPACA_API_KEY
+        value: <PKH4J302ABVZ1K7V60J0>
+      - key: ALPACA_SECRET_KEY
+        value: <1NASos14HvKPIIf5nNovL6IUHBWzyPaX9rnKe1Rj>
+      - key: ALPACA_BASE_URL
+        value: https://paper-api.alpaca.markets/v2
