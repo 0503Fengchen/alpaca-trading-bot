@@ -1,6 +1,7 @@
 from flask import Flask, request
 from alpaca_trade_api.rest import REST
 import os
+import traceback
 
 app = Flask(__name__)
 
@@ -19,11 +20,14 @@ def webhook():
         data = request.get_json()
         print("📩 收到資料：", data)
 
-        # 檢查 secret token（如有啟用）
+        if not data:
+            return "❌ 無效的 JSON 資料", 400
+
+        # 驗證 secret（如有）
         if WEBHOOK_SECRET:
             if data.get("secret") != WEBHOOK_SECRET:
-                print("🚫 驗證失敗！")
-                return "Unauthorized", 403
+                print("🚫 驗證失敗！收到的 secret:", data.get("secret"))
+                return "❌ Unauthorized - Secret 不正確", 403
 
         action = data.get("action")
         symbol = data.get("ticker")
@@ -54,6 +58,7 @@ def webhook():
 
     except Exception as e:
         print("❌ 錯誤發生：", e)
+        traceback.print_exc()
         return f"Server error: {e}", 500
 
 if __name__ == '__main__':
